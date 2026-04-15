@@ -21,13 +21,13 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Restore
-        run: dotnet restore .\BrighterTools.Webhooks.sln
+        run: dotnet restore ./BrighterTools.Webhooks.sln
 
       - name: Build
-        run: dotnet build .\BrighterTools.Webhooks.sln --configuration Release --no-restore
+        run: dotnet build ./BrighterTools.Webhooks.sln --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test .\BrighterTools.Webhooks.sln --configuration Release --no-build --verbosity normal
+        run: dotnet test ./BrighterTools.Webhooks.sln --configuration Release --no-build --verbosity normal
 
       - name: Pack NuGet package
-        run: dotnet pack .\src\BrighterTools.Webhooks\BrighterTools.Webhooks.csproj --configuration Release --no-build -o .\artifacts
+        run: dotnet pack ./src/BrighterTools.Webhooks/BrighterTools.Webhooks.csproj --configuration Release --no-build -o ./artifacts
