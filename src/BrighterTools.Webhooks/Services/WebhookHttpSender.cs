@@ -38,13 +38,14 @@ public class WebhookHttpSender(IHttpClientFactory httpClientFactory, IOptions<We
                 ErrorMessage = success ? null : $"Webhook response status {(int)response.StatusCode}"
             };
         }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }
         catch (Exception exception)
         {
-            logger.LogError(exception, "Error sending webhook delivery {DeliveryId}", delivery.Id);
+            logger.LogError("Error sending webhook delivery {DeliveryId}: {FailureType}", delivery.Id, exception.GetType().Name);
             return new WebhookDeliveryAttemptResult
             {
                 Succeeded = false,
-                ErrorMessage = exception.Message
+                ErrorMessage = exception.GetType().Name
             };
         }
     }
